@@ -1,4 +1,4 @@
-fn main() {
+pub fn test() {
     let money: String = "42".to_string();
     fn borrow_it(qty: &String) {
       println!("Your money total is ${}", qty)

@@ -16,7 +16,7 @@ impl<'a> From<Dinosaur<'a>> for String {
   }
 }
 
-fn main() {
+pub fn test() {
   let new_york = Earth {
     location: "New York, NY".to_string(),
   };
