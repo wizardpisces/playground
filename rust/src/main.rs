@@ -1,6 +1,13 @@
-fn main() {
-    // Statements here are executed when the compiled binary is called
+// extern crate ferris_says;
+mod greetings;
+// use std::io::{stdout, BufWriter};
 
-    // Print text to the console
-    println!("Hello World!");
+fn main() {
+    // let stdout = stdout();
+    // let message = String::from("Hello fellow Rustaceans!");
+    // let width = message.chars().count();
+
+    // let mut writer = BufWriter::new(stdout.lock());
+    // greetings.hello(message.as_bytes(), width, &mut writer).unwrap();
+    greetings::hello()
 }

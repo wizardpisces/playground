@@ -1,2 +1,6 @@
+[package]
+name = "test"
+version = "0.0.1"
+
 [dependencies]
-ferris-says = "0.2"
+# ferris-says = "0.2"
