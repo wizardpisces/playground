@@ -5,6 +5,7 @@ mod traits;
 use crate::lifetime::test;
 use traits::basic::{Hello, Student};
 use traits::error::{test as testError};
+use traits::from::{from as testFrom};
 // use std::io::{stdout, BufWriter};
 
 fn main() {
@@ -26,5 +27,7 @@ fn main() {
     s.say_hi();
     
     let result = testError();
-    eprint!("{:?}",result)
+    eprintln!("{:?}",result);
+
+    testFrom();
 }
