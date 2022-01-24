@@ -2,7 +2,7 @@ mod greetings;
 mod lifetime;
 mod traits;
 
-use crate::lifetime::test;
+use crate::lifetime::{reference,borrow,ownership};
 use traits::basic::{Hello, Student};
 use traits::error::{test as testError};
 use traits::from::{from as testFrom};
@@ -18,7 +18,10 @@ fn main() {
     greetings::hello();
 
     // lifetime
-    test();
+    reference::reference();
+
+    // borrow
+    ownership::ownership();
 
     //traits
 
