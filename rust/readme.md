@@ -18,7 +18,7 @@ Rust 开始替换 Javascript 的 Web 生态系统的重要组成部分包括压�
 - [ ] 系统驱动、云计算、虚拟存储、网络传输协议、并发编程框架基础库
 https://wizardpisces.github.io/blog/basic
 
-### 应用探索
+### 其他探索
 
 - [ ] C变异到 rust
 - [ ] 内联汇编

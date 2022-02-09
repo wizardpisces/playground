@@ -1,9 +1,13 @@
 mod greetings;
 mod lifetime;
 mod traits;
+mod concurrent;
 
-use crate::lifetime::{reference,borrow,ownership};
+use lifetime::{reference,borrow,ownership};
 use traits::basic::{Hello, Student};
+// use traits::polymorphism::{dynamic_dispatch};
+// use concurrent;
+
 use traits::error::{test as testError};
 use traits::from::{from as testFrom};
 // use std::io::{stdout, BufWriter};
@@ -13,8 +17,7 @@ fn main() {
     let message = String::from("Hello fellow Rustaceans!");
     let width = message.chars().count();
     println!("{}", width);
-    // let mut writer = BufWriter::new(stdout.lock());
-    // greetings.hello(message.as_bytes(), width, &mut writer).unwrap();
+
     greetings::hello();
 
     // lifetime
@@ -33,4 +36,11 @@ fn main() {
     eprintln!("{:?}",result);
 
     testFrom();
+
+    //concurrent
+    concurrent::spawn::demo1();
+
+    concurrent::spawn::demo2();
+
+    concurrent::channel::demo1();
 }
