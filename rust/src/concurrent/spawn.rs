@@ -15,9 +15,10 @@ pub fn demo1() {
     }
     // handle是拥有所有权的值，当对其调用 join 方法时，它会等待其线程结束
     handle.join().unwrap();
+    demo2()
 }
 
-pub fn demo2() {
+fn demo2() {
     let v = vec![1, 2, 3];
 
     // 所有权move到新的线程

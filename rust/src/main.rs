@@ -3,7 +3,7 @@ mod lifetime;
 mod traits;
 mod concurrent;
 
-use lifetime::{reference,borrow,ownership};
+use lifetime::{reference,ownership};
 use traits::basic::{Hello, Student};
 // use traits::polymorphism::{dynamic_dispatch};
 // use concurrent;
@@ -13,22 +13,16 @@ use traits::from::{from as testFrom};
 // use std::io::{stdout, BufWriter};
 
 fn main() {
-    // let stdout = stdout();
-    let message = String::from("Hello fellow Rustaceans!");
-    let width = message.chars().count();
-    println!("{}", width);
-
+    // simple
     greetings::hello();
 
-    // lifetime
+    /* lifetime */
     reference::reference();
-
-    // borrow
     ownership::ownership();
+    lifetime::borrow::borrow_move();
 
-    //traits
+    /*traits*/
 
-    // let s = traits::basic::Student {};
     let s = Student {};
     s.say_hi();
     
@@ -37,10 +31,10 @@ fn main() {
 
     testFrom();
 
-    //concurrent
-    concurrent::spawn::demo1();
+    /*concurrent*/
+    // concurrent::spawn::demo1();
 
-    concurrent::spawn::demo2();
+    // concurrent::channel::demo1();
 
-    concurrent::channel::demo1();
+    concurrent::mutex::demo1();
 }

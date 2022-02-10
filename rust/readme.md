@@ -87,7 +87,7 @@ rustc src/main.rs --out-dir target
 
 * [Rust官方 FAQ](https://prev.rust-lang.org/en-US/faq.html)
 * [rust可以做什么更详细的介绍](https://www.infoq.cn/article/umqbighceoa81yij7uyg)
-* （书籍）[Rust程序设计](https://kaisery.github.io/trpl-zh-cn/foreword.html)
+* （书籍）[Rust程序设计](https://kaisery.github.io/trpl-zh-cn/ch15-00-smart-pointers.html)
 * https://doc.rust-lang.org/rust-by-example/index.html
-* https://www.rust-lang.org/learn/get-started
 * https://learning-rust.github.io/docs/c1.ownership.html
+* https://blog.risingstack.com/how-to-use-rust-with-node-when-performance-matters/
