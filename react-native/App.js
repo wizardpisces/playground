@@ -27,6 +27,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Counter from './components/Counter'
+import CounterHooks from './components/counter-hooks'
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -73,6 +74,7 @@ const App: () => Node = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
             <Counter></Counter>
+            <CounterHooks></CounterHooks>
           <Section title="Step One changeddd">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.

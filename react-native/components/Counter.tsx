@@ -54,7 +54,7 @@ export default class Counter extends React.Component {
         } = this.state;
         return (
             <Fragment>
-                <Text style={count < 3 ? styles.less : styles.greater}>You clicked {count} times</Text>
+                <Text style={count < 3 ? styles.less : styles.greater}>Counter: You clicked {count} times</Text>
                 <TouchableOpacity style={styles.button} onPress={this.setCount}>
                     <Text style={styles.buttonText}>Click</Text>
                 </TouchableOpacity>
