@@ -9,6 +9,8 @@ Rust is a systems programming language focused on three goals: safety, speed, an
 Rust 开始替换 Javascript 的 Web 生态系统的重要组成部分包括压缩（Terser）、编译（Babel）、格式化（Prettier）、打包（webpack）、代码检查（ESLint）、以及更多其他的库
 
 0. [swc](https://swc.rs/docs/getting-started)
+    * @swc-node/jest 使用 N-API bingding所以相对于 @swc/jest（基于[neon](https://github.com/neon-bindings/neon)，不过看起来也要迁移到 N-API了） 更快
+    * 建议先在非产线试用，也就是dev相关，例如：单元测试
 1. [Rome](https://github.com/rome/tools)
 2. [Tauri](https://github.com/tauri-apps/tauri)
 3. [Deno](https://github.com/denoland/deno)
@@ -88,6 +90,7 @@ rustc src/main.rs --out-dir target
 * [Rust官方 FAQ](https://prev.rust-lang.org/en-US/faq.html)
 * [rust可以做什么更详细的介绍](https://www.infoq.cn/article/umqbighceoa81yij7uyg)
 * （书籍）[Rust程序设计](https://kaisery.github.io/trpl-zh-cn/ch15-00-smart-pointers.html)
+* [nodejs是如何和libuv以及v8一起合作的](https://blog.5udou.cn/#/blog/detail/nodejsShi-Ru-He-He-libuvYi-Ji-v8Yi-Qi-He-Zuo-De-Wen-Mo-You-Cai-Dan-Ou-84)
 * https://doc.rust-lang.org/rust-by-example/index.html
 * https://learning-rust.github.io/docs/c1.ownership.html
 * https://blog.risingstack.com/how-to-use-rust-with-node-when-performance-matters/
