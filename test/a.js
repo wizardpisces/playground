@@ -1,10 +1,10 @@
 // fibonacci fiber
 function fib(n) {
-  let fiber = { arg: n, returnAddr: null, a: 0 }, consoled = false;
+  let fiber = { index: n, returnAddr: null, value: 0 }, consoled = false;
   // 标记循环
   rec: while (true) {
     // 当展开完全后，开始计算
-    if (fiber.arg <= 2) {
+    if (fiber.index <= 2) {
       let sum = 1;
       // 寻找父级
       while (fiber.returnAddr) {
@@ -14,17 +14,17 @@ function fib(n) {
           console.log(fiber)
         }
         fiber = fiber.returnAddr;
-        if (fiber.a === 0) {
-          fiber.a = sum;
-          fiber = { arg: fiber.arg - 2, returnAddr: fiber, a: 0 };
+        if (fiber.value === 0) {
+          fiber.value = sum;
+          fiber = { index: fiber.index - 2, returnAddr: fiber, value: 0 };
           continue rec;
         }
-        sum += fiber.a;
+        sum += fiber.value;
       }
       return sum;
     } else {
       // 先展开
-      fiber = { arg: fiber.arg - 1, returnAddr: fiber, a: 0 };
+      fiber = { index: fiber.index - 1, returnAddr: fiber, value: 0 };
     }
   }
 }
