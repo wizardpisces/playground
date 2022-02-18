@@ -8,7 +8,8 @@
     "build-debug": "npm run build --",
     "build-release": "npm run build -- --release",
     "install": "npm run build-release",
-    "test": "cargo test"
+    "test": "cargo test",
+    "test-js":"npm run build && node test/basic.test.js"
   },
   "author": "刘泽",
   "license": "ISC",
