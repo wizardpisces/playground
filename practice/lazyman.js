@@ -1,8 +1,39 @@
+new LazyMan("food").eat("eat1").sleep(1000).eat("eat2").sleepFirst(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class LazyMan {
   constructor(food) {
     console.log(food);
     this.taskList = [];
-    setTimeout(()=>this.next(),0)
+    setTimeout(() => this.next(), 0);
   }
   next() {
     let task = this.taskList.shift();
@@ -10,8 +41,8 @@ class LazyMan {
   }
   eat(food) {
     this.taskList.push(() => {
-        console.log(food)
-        this.next()
+      console.log(food);
+      this.next();
     });
     return this;
   }
@@ -29,5 +60,3 @@ class LazyMan {
     };
   }
 }
-
-new LazyMan("food").eat("eat1").sleep(1000).eat("eat2").sleepFirst(3000);
