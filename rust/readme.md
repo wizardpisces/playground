@@ -52,10 +52,22 @@ https://wizardpisces.github.io/blog/basic
 - [ ] 协变计算矩阵？
 - [ ] rust web server
 ### examples
+#### Rust
 How to run
+
 ```bash
+cargo run
+
+# or
+
 rustc src/main.rs --out-dir target
 ./target/main
+
+```
+#### 给Node写插件
+```bash
+cd examples/neon-demo
+npm run test-js
 ```
 
 ## Q&A
