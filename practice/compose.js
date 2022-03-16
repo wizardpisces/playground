@@ -96,8 +96,6 @@ add1mul3(4, function (err, result) {
 
 
 
-
-
 // solution 1 : build composed function before runtime
 
 /**

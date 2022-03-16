@@ -95,9 +95,6 @@ let memory = [0, 1]
 
 
 
-
-
-
 // non recursive
 function fibonacci(n) {
     let f0 = 0,
