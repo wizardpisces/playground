@@ -4,3 +4,4 @@ version = "0.0.1"
 
 [dependencies]
 # ferris-says = "0.2"
+server = { path = "./examples/server" }
