@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = (env) => {
 
@@ -18,6 +19,12 @@ module.exports = (env) => {
                 'ENV_IS_NORMAL_PORTAL': JSON.stringify(env.PORTAL === 'Normal')
                 // 'ENV_IS_NORMAL_PORTAL': JSON.stringify(process.env.normalPortal)
             })
-        ]
+        ],
+        optimization: {
+            minimize: false,
+            // sideEffects:true
+            // minimize: true,
+            // minimizer: [new TerserPlugin()],
+        },
     }
 };
