@@ -1,6 +1,6 @@
 ## Demo
 
-webpack
+ "webpack": "^5.72.1"
 
 * tree shaking
 * dead code elimination
@@ -27,6 +27,21 @@ sideEffects场景：
 * "sideEffects": true; 表明保留所有的地方的 sideEffects
 * "sideEffects": false; 表明清理掉所有地方的 sideEffects
 * 其他配置 参照 webpack 文档
+
+### Tree Shaking 失效场景
+
+* 如果函数是简单的 ArrowFunctionExpression ( e.g. const fn = ()=>true ) 则可以 tree shake 掉；
+* 如果是 BlockStatement ( e.g. ()=>{ return true } )则会失败；
+
+```js
+// 包含了 BlockStatement
+export const isNormalPortal = ()=>{
+    ENV_IS_NORMAL_PORTAL
+}
+
+// 但是可以 shake 成功；可能是只包含简单的 ArrowFunctionExpression 
+export const isNormalPortal = ()=>ENV_IS_NORMAL_PORTAL 
+```
 ## Reference
 
 * https://webpack.docschina.org/guides/tree-shaking/

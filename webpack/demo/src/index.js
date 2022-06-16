@@ -24,5 +24,5 @@ if (isNormalPortal) {
     console.log(cube(2))
     console.log(square(2))
 } else {
-    // unusedFunction()
+    unusedFunction()
 }
