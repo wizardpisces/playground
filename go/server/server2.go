@@ -7,6 +7,7 @@ import (
     "net/http"
     "strings"
     "log"
+    "example/server/text"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
@@ -15,6 +16,9 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
     fmt.Println("path", r.URL.Path)
     fmt.Println("scheme", r.URL.Scheme)
     fmt.Println(r.Form["url_long"])
+
+    fmt.Println("listening ", text.DispatchLogic("seller"))
+
     for k, v := range r.Form {
         fmt.Println("key:", k)
         fmt.Println("val:", strings.Join(v, ""))

@@ -21,7 +21,7 @@ module.exports = (env) => {
             })
         ],
         optimization: {
-            minimize: false,
+            // minimize: false,
             // sideEffects:true
             // minimize: true,
             // minimizer: [new TerserPlugin()],

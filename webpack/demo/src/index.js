@@ -26,3 +26,25 @@ if (isNormalPortal) {
 } else {
     unusedFunction()
 }
+
+const fn = ()=>{
+    switch (isNormalPortal){
+        case true: {
+            if (isNormalPortal) {
+                console.log(cube(2))
+                console.log(square(2))
+                return
+            }
+                console.log('could be tree shaked')
+                unusedFunction()
+            break
+        }
+        case false:{
+            console.log('false static logic ,could be shaked');
+            break;
+        }
+        default:console.log(3)
+    }
+}
+
+fn()

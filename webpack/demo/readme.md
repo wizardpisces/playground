@@ -27,10 +27,11 @@ webpack 在 build 的时默认做 tree shaking + dead code elimination；
 * "sideEffects": false; 表明清理掉所有地方的 sideEffects
 * 其他配置 参照 webpack 文档
 
-### Tree Shaking 失效场景
+### Tree Shaking 特殊场景
 
 * 如果函数是简单的 ArrowFunctionExpression ( e.g. const fn = ()=>true ) 则可以 tree shake 掉；
 * 如果是 BlockStatement ( e.g. ()=>{ return true } )则会失败；
+* switch 放在函数内部则可被 tree shake，放在函数外部则不可做 tree shake
 
 ```js
 // 不可以 shake 成功，可能原因：包含 BlockStatement
