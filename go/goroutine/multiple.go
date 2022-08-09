@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func numbers() {
@@ -19,7 +20,7 @@ func alphabets() {
 func main() {
 	go numbers()
 	go alphabets()
-	// time.Sleep(3000 * time.Millisecond)
+	time.Sleep(3000 * time.Millisecond)
 	fmt.Println("main terminated")
 }
 
