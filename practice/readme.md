@@ -85,4 +85,20 @@ req3                  |- cpu -|---request---| |- cpu -|
 3. 计算机是如何区分内核态跟用户态的？
 4. 编译优化？指令重排？
 5. 什么是内存可见性？
-6. webContainer 原理？
+6. web
+    * webContainer 原理？
+    * WASI
+    * 什么是Serverless？为什么webContainer可能带来变化？
+8. 什么是hypervisor，如何隔绝操作系统对于硬件的感知？可以理解成操作系统的操作系统？
+9. 虚拟化？
+    * 服务虚拟化 CPU
+    * 存储虚拟化
+    * 网络虚拟化
+    * 应用：IO虚拟化、KVM/QEMU、内存虚拟化、SRIOV、Virtio、vDPA
+10. docker
+    * UnionFS
+    * When running on Linux, Docker uses the resource isolation features of the Linux kernel (such as cgroups and kernel namespaces) and a union-capable file system (such as OverlayFS)[11] to allow containers to run within a single Linux instance, avoiding the overhead of starting and maintaining virtual machines.[12] Docker on macOS uses a Linux virtual machine to run the containers.[13]
+11. linux
+    * cgroup
+    * namespaces
+12. 计算机组成：运算器，控制器，存储器，I/O

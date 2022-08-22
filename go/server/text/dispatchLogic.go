@@ -1,6 +1,8 @@
 package text
 
-import ("example/server/text/portal")
+import (
+	"example/server/text/portal"
+)
 
 // Hello returns a greeting for the named person.
 func DispatchLogic(name string) string {
