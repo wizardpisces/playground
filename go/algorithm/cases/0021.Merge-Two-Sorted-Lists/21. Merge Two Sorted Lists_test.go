@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 
 	"algorithm/structures"
@@ -73,9 +74,13 @@ func Test_Problem21(t *testing.T) {
 
 	fmt.Printf("------------------------Leetcode Problem 21------------------------\n")
 
-	for _, q := range qs {
-		_, p := q.ans21, q.para21
-		fmt.Printf("【input】:%v       【output】:%v\n", p, structures.List2Ints(mergeTwoLists(structures.Ints2List(p.one), structures.Ints2List(p.another))))
+	for i, q := range qs {
+		expectResult, p := q.ans21, q.para21
+		result := structures.List2Ints(mergeTwoLists(structures.Ints2List(p.one), structures.Ints2List(p.another)))
+		if !reflect.DeepEqual(expectResult.one, result) {
+			t.Fatalf("case-%d: expect = %v, got = %v", i, expectResult.one, result)
+		}
+		// fmt.Printf("【input】:%v       【output】:%v\n", p, )
 	}
 	fmt.Printf("\n\n\n")
 }
