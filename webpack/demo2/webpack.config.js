@@ -13,12 +13,12 @@ module.exports = {
             // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
             {
                 test: /\.tsx?$/,
-                loader: "ts-loader"
-                // loader: "esbuild-loader",
-                // options: {
-                //     loader: 'ts', // Or 'ts' if you don't need tsx
-                //     target: 'es2015'
-                // }
+                // loader: "ts-loader"
+                loader: "esbuild-loader",
+                options: {
+                    loader: 'ts', // Or 'ts' if you don't need tsx
+                    target: 'es2015'
+                }
             }
         ]
     }

@@ -11,9 +11,6 @@
         // interop between ESM and CJS modules. Recommended by TS
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "allowSyntheticDefaultImports":true,
-        "types": [
-            "types"
-        ]
+        "allowSyntheticDefaultImports":true
     }
 }
