@@ -1,5 +1,7 @@
 package structures
 
+import "strconv"
+
 // TreeNode is tree's node
 type TreeNode struct {
 	Val   int
@@ -60,4 +62,61 @@ func Tree2Preorder(root *TreeNode) []int {
 	res = append(res, Tree2Preorder(root.Right)...)
 
 	return res
+}
+
+// Strings2TreeNode converts []string to *TreeNode
+func Strings2TreeNode(strs []string) *TreeNode {
+	n := len(strs)
+	if n == 0 {
+		return nil
+	}
+	x, _ := strconv.Atoi(strs[0])
+	root := &TreeNode{Val: x}
+	queue := make([]*TreeNode, 1, n<<1)
+	queue[0] = root
+	i := 1
+	for i < n {
+		node := queue[0]
+		queue = queue[1:]
+		if i < n && strs[i] != "null" {
+			x, _ = strconv.Atoi(strs[i])
+			node.Left = &TreeNode{Val: x}
+			queue = append(queue, node.Left)
+		}
+		i++
+		if i < n && strs[i] != "null" {
+			x, _ = strconv.Atoi(strs[i])
+			node.Right = &TreeNode{Val: x}
+			queue = append(queue, node.Right)
+		}
+		i++
+	}
+	return root
+}
+
+// Tree2LevelOrderStrings converts *TreeNode into []string by level order traversal.
+func Tree2LevelOrderStrings(root *TreeNode) []string {
+	var ans []string
+	if root == nil {
+		return ans
+	}
+	queue := []*TreeNode{root}
+	var level int
+	for level = 0; len(queue) > 0; level++ {
+		size := len(queue)
+		for i := 0; i < size; i++ {
+			node := queue[i]
+			if node == nil {
+				ans = append(ans, "null")
+			} else {
+				ans = append(ans, strconv.Itoa(node.Val))
+				if node.Left != nil || node.Right != nil {
+					queue = append(queue, node.Left, node.Right)
+				}
+			}
+		}
+		queue = queue[size:]
+	}
+	level--
+	return ans
 }
