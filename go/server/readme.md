@@ -1,13 +1,9 @@
 ## Introduction
 
-GO Demo
+GO Demo of dispatchLogic
 
 ## How to Run
 
 ```
-go run server2.go
+go run server.go
 ```
-
-## Reference
-
-* https://learnku.com/docs/build-web-application-with-golang/032-go-builds-a-web-server/3169
