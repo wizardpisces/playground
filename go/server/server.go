@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	dispatch "github.com/wizardpisces/server/text"
+	dispatch "dispatch-demo/text"
 
-	"github.com/wizardpisces/server/structures"
+	"dispatch-demo/structures"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {

@@ -1,3 +1,3 @@
-module github.com/wizardpisces/server
+module dispatch-demo
 
 go 1.18

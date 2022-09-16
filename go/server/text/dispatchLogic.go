@@ -1,9 +1,9 @@
 package text
 
 import (
-	portal "github.com/wizardpisces/server/text/portal"
+	portal "dispatch-demo/text/portal"
 
-	"github.com/wizardpisces/server/structures"
+	"dispatch-demo/structures"
 )
 
 type Portal struct {
