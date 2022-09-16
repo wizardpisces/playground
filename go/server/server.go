@@ -1,12 +1,14 @@
 package main
 
 import (
-	"dispatch/server/structures"
-	dispatch "dispatch/server/text"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
+
+	dispatch "github.com/wizardpisces/server/text"
+
+	"github.com/wizardpisces/server/structures"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
