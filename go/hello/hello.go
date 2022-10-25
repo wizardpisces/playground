@@ -1,5 +1,6 @@
 package hello
 
 func Hello() string {
-    return "Hello, world."
+	println(0.2 + 0.1)
+	return "Hello, world."
 }
