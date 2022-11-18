@@ -51,6 +51,9 @@ https://wizardpisces.github.io/blog/basic
 - [ ] 上层抽象范式
 - [ ] 协变计算矩阵？
 - [ ] rust web server
+
+
+学习方向：Rust所有权、抽象模式、函数式编程语言特性
 ### examples
 #### Rust
 How to run

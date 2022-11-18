@@ -23,8 +23,10 @@ bFunc()
 if (isNormalPortal) {
     console.log(cube(2))
     console.log(square(2))
+    document.write('is normal portal')
 } else {
     unusedFunction()
+    document.write('is not normal portal')
 }
 
 const fn = ()=>{
