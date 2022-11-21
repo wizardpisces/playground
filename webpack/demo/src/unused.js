@@ -15,6 +15,10 @@ Function.prototype.bind = ()=>{
     console.log('side effect: bind polyfill, should be eliminated if not used')
 }
 
-export default function unusedFunction() {
+export function unusedFunction() {
     console.log('this is unusedFunction, should be dead code eliminated')
+}
+
+export function unusedFunction2(){
+    console.log('unusedFunction2')
 }

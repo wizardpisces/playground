@@ -5,7 +5,7 @@ import {
     square,
     cube
 } from "./math";
-import unusedFunction from './unused'
+import {unusedFunction} from './unused'
 
 let arr = []
 
@@ -20,13 +20,18 @@ let bFunc = func.bind(arr)
 
 bFunc()
 
-if (isNormalPortal) {
-    console.log(cube(2))
-    console.log(square(2))
-    document.write('is normal portal')
-} else {
-    unusedFunction()
-    document.write('is not normal portal')
+function test(){
+    if (isNormalPortal) {
+        console.log(cube(2))
+        console.log(square(2))
+        document.write('is normal portal')
+        return
+        
+    } else {
+        // unusedFunction()
+        document.write('is not normal portal')
+    }
+    document.write("won't be called")
 }
 
 const fn = ()=>{
@@ -38,7 +43,7 @@ const fn = ()=>{
                 return
             }
                 console.log('could be tree shaked')
-                unusedFunction()
+                // unusedFunction()
             break
         }
         case false:{
