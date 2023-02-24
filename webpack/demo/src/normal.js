@@ -3,8 +3,7 @@ import {
 } from './util'
 
 // if (ENV_IS_NORMAL_PORTAL){
-let status = checkRuntimeEnv('Normal','normal module')
-console.log(status)
+checkRuntimeEnv('Normal','normal module')
 // }
 
 export function normalFn(){

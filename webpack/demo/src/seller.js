@@ -19,8 +19,7 @@
 import {checkRuntimeEnv} from './util'
 
 // if (!ENV_IS_NORMAL_PORTAL) {
-    let status = checkRuntimeEnv('Seller','seller module')
-    console.log(status)
+checkRuntimeEnv('Seller','seller module')
 // }
 
 // document.write('is_normal_portal')

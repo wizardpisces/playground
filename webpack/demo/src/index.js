@@ -28,6 +28,7 @@ function test(){
         // document.write('is normal portal')
         // console.log('this is normal portal', ENV_IS_NORMAL_PORTAL)
         normalFn()
+        // sellerFn()
         return
         
     } else {

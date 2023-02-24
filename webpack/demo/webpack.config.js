@@ -49,7 +49,8 @@ module.exports = (env) => {
             minimizer: [new TerserPlugin({
                 terserOptions:{
                     compress:{
-                        pure_funcs: ["checkRuntimeEnv"]
+                        // pure_funcs: ["checkRuntimeEnv"]
+                        // side_effects:false
                     }
                 }
             })],
