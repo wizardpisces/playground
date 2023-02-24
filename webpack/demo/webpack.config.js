@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = (env) => {
@@ -7,6 +8,13 @@ module.exports = (env) => {
     console.log(env.PORTAL)
 
     return {
+        devServer: {
+            static: {
+                directory: path.join(__dirname, 'dist'),
+            },
+            // compress: true,
+            port: 9000,
+        },
         entry: './src/index.js',
         devtool: false,
         output: {
@@ -19,23 +27,32 @@ module.exports = (env) => {
         plugins: [
             new webpack.DefinePlugin({
                 'ENV_IS_NORMAL_PORTAL': JSON.stringify(env.PORTAL === 'Normal'),
-                'isNormalPortal': JSON.stringify(env.PORTAL === 'Normal')
+                'PORTAL': JSON.stringify(env.PORTAL)
                 // 'ENV_IS_NORMAL_PORTAL': JSON.stringify(process.env.normalPortal)
             }),
-            new webpack.SourceMapDevToolPlugin({})
+            // new webpack.SourceMapDevToolPlugin({}),
+            new HtmlWebpackPlugin({
+                template:"index.html"
+            }),
             // new webpack.optimize.ModuleConcatenationPlugin(),
             // new webpack.optimize.FlagDependencyUsagePlugin,
             // new webpack.optimize.FlagIncludedChunksPlugin(),
             // new webpack.optimize.TerserPlugin(),
         ],
         optimization: {
-            // usedExports:true,
+            usedExports:true,
             concatenateModules: true,
             minimize: true,
             // nodeEnv:'development',
             // sideEffects:false,
-            // // minimize: true,
-            // minimizer: [new TerserPlugin()],
+            // minimize: true,
+            minimizer: [new TerserPlugin({
+                terserOptions:{
+                    compress:{
+                        pure_funcs: ["checkRuntimeEnv"]
+                    }
+                }
+            })],
         },
     }
 };
