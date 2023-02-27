@@ -16,7 +16,7 @@ module.exports = (env) => {
             port: 9000,
         },
         entry: './src/index.js',
-        devtool: false,
+        // devtool: false,
         output: {
             filename: 'bundle.js',
             path: path.resolve(__dirname, 'dist'),
@@ -40,20 +40,19 @@ module.exports = (env) => {
             // new webpack.optimize.TerserPlugin(),
         ],
         optimization: {
-            usedExports:true,
-            concatenateModules: true,
-            minimize: true,
+            // usedExports:true,
+            // concatenateModules: true,
+            // minimize: true,
             // nodeEnv:'development',
             // sideEffects:false,
-            // minimize: true,
-            minimizer: [new TerserPlugin({
-                terserOptions:{
-                    compress:{
-                        // pure_funcs: ["checkRuntimeEnv"]
-                        // side_effects:false
-                    }
-                }
-            })],
+            // minimizer: [new TerserPlugin({
+            //     terserOptions:{
+            //         compress:{
+            //             // pure_funcs: ["checkRuntimeEnv"]
+            //             // side_effects:false
+            //         }
+            //     }
+            // })],
         },
     }
 };
