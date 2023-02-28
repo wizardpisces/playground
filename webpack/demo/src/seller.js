@@ -18,18 +18,12 @@
 // console.warn('unused should not be loaded in env Portal=normal')
 import {checkRuntimeEnv} from './util'
 
-// if (!ENV_IS_NORMAL_PORTAL) {
-checkRuntimeEnv('Seller','seller module')
-// }
+checkRuntimeEnv('Seller', 'seller module')
 
-// document.write('is_normal_portal')
 export function sellerFn() {
-    console.log('seller function running')
+    console.log('sellerFn function running')
 }
 
 export const config = {
     name:'liuze'
 }
-// export function unusedFunction2(){
-//     console.log('unusedFunction2')
-// }

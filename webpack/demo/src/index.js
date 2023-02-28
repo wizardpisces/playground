@@ -22,18 +22,16 @@ import { sellerFn } from './seller'
 // bFunc()
 
 function test(){
+    // let normal = normalFn()
+    // let seller = sellerFn()
     if (ENV_IS_NORMAL_PORTAL) {
-        // console.log(cube(2))
-        // console.log(square(2))
-        // document.write('is normal portal')
-        // console.log('this is normal portal', ENV_IS_NORMAL_PORTAL)
         normalFn()
-        // sellerFn()
+        // console.log(normal)
         return
         
     } else {
         sellerFn()
-        console.log('this is not normal portal')
+        // console.log('this is not normal portal', seller)
         return
         // document.write('is not normal portal')
     }
