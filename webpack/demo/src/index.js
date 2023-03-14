@@ -1,62 +1,8 @@
-// import {
-//     isNormalPortal
-// } from "./constant";
-// import {
-//     square,
-//     cube
-// } from "./math";
-import { normalFn } from './normal'
-import { sellerFn } from './seller'
-
-// let arr = []
-
-// arr.customFun()
-
-// const func = () => {
-//     let a = 1
-//     console.log('asdf')
-// }
-
-// let bFunc = func.bind(arr)
-
-// bFunc()
-
-function test(){
-    // let normal = normalFn()
-    // let seller = sellerFn()
-    if (ENV_IS_NORMAL_PORTAL) {
-        normalFn()
-        // console.log(normal)
-        return
-        
-    } else {
-        sellerFn()
-        // console.log('this is not normal portal', seller)
-        return
-        // document.write('is not normal portal')
-    }
-}
-
-test()
-
-// const fn = ()=>{
-//     switch (isNormalPortal){
-//         case true: {
-//             if (isNormalPortal) {
-//                 console.log(cube(2))
-//                 console.log(square(2))
-//                 return
-//             }
-//                 console.log('could be tree shaked')
-//                 // unusedFunction()
-//             break
-//         }
-//         case false:{
-//             console.log('false static logic ,could be shaked');
-//             break;
-//         }
-//         default:console.log(3)
-//     }
-// }
-
-// fn()
+import {
+    getConfig
+} from "./config";
+const {fn,fnRes,name} = getConfig()
+const {data,other} = fnRes
+console.log(fn())
+console.log(other,data)
+console.log(name)

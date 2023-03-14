@@ -21,8 +21,8 @@ module.exports = (env) => {
             filename: 'bundle.js',
             path: path.resolve(__dirname, 'dist'),
         },
-        // mode: 'production',
-        mode: 'development',
+        mode: 'production',
+        // mode: 'development',
 
         plugins: [
             new webpack.DefinePlugin({
@@ -32,7 +32,7 @@ module.exports = (env) => {
             }),
             // new webpack.SourceMapDevToolPlugin({}),
             new HtmlWebpackPlugin({
-                template:"index.html"
+                template: "index.html"
             }),
             // new webpack.optimize.ModuleConcatenationPlugin(),
             // new webpack.optimize.FlagDependencyUsagePlugin,
@@ -42,17 +42,18 @@ module.exports = (env) => {
         optimization: {
             // usedExports:true,
             // concatenateModules: true,
-            // minimize: true,
+            minimize: true,
             // nodeEnv:'development',
             // sideEffects:false,
-            // minimizer: [new TerserPlugin({
-            //     terserOptions:{
-            //         compress:{
-            //             // pure_funcs: ["checkRuntimeEnv"]
-            //             // side_effects:false
-            //         }
-            //     }
-            // })],
+            minimizer: [new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        dead_code: true,
+                        // pure_funcs: ["checkRuntimeEnv"]
+                        // side_effects:false
+                    }
+                }
+            })],
         },
     }
 };
