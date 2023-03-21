@@ -1,8 +1,9 @@
-export function checkRuntimeEnv(portal, moduleName) {
-    console.log(`[checkRuntimeEnv] running in ${PORTAL} , received ${portal}, moduleName:${moduleName}`)
-    if (PORTAL !== portal) {
-        console.warn(`[checkRuntimeEnv] running in the wrong portal, expect ${portal} , received ${PORTAL}; moduleName:${moduleName}`)
+export function moduleRunAt(border) {
+    console.log(`[moduleRunAt] running in ${PORTAL} , received ${border.portal}`)
+    if (border.portal && border.portal.length>0 && !border.portal.includes(PORTAL)) {
+        console.warn(`[moduleRunAt] running in the wrong portal, expect ${border.portal} , received ${PORTAL}`)
+        // throw new Error(`[moduleRunAt] running in the wrong portal, expect ${border.portal} , received ${PORTAL}`)
+        return false
     }
-    let a = 1
-    let b = a + 1
+    return true
 }

@@ -16,9 +16,11 @@
 // }
 
 // console.warn('unused should not be loaded in env Portal=normal')
-import {checkRuntimeEnv} from '../util'
+import {moduleRunAt} from '../util'
 
-checkRuntimeEnv('Seller', 'seller module')
+moduleRunAt([{
+    portal: ['seller']
+}])
 
 export function sellerFn() {
     console.log('sellerFn function running')
@@ -28,9 +30,9 @@ let fn = sellerFn
 
 export const config = {
     name:'seller liuze',
-    fn,
+    // fn,
      fnRes: {
-         data: fn(),
+        //  data: fn(),
          other: ''
      }
 }

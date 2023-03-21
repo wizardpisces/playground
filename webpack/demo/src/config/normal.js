@@ -1,8 +1,10 @@
 import {
-    checkRuntimeEnv
+    moduleRunAt
 } from '../util'
 
-checkRuntimeEnv('Normal','normal module')
+moduleRunAt([{
+    portal: ['normal']
+}])
 
 export function normalFn(){
     console.log("normalFn function running")
