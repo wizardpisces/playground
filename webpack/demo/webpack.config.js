@@ -2,127 +2,70 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
-
-
-const isInvalidModuleBorder = (border, options) => {
-    const {
-        portal = [], regions = []
-    } = border;
-    let isInvalidPortal = false;
-    let isInvalidRegion = false;
-    if (portal.length) {
-        isInvalidPortal = !portal.includes(options.portal);
+const ModuleRunAtPlugin = require('./plugins/moduleRunAtPlugin')
+const DispatchLogicRatioPlugin = require('./plugins/DispatchLogicRatioPlugin')
+// A webpack plugin that detects if variable A appears twice in the same directory tree
+class DetectVariableAPlugin {
+    constructor(options) {
+        // You can pass some options to this plugin if you want
+        this.options = options;
     }
-    if (regions.length) {
-        isInvalidRegion = !regions.includes(options.region);
-    }
-    return isInvalidPortal || isInvalidRegion;
-};
 
-function moduleRunAt(borders, options) {
-    const isInvalid = borders.some((border) => isInvalidModuleBorder(border, options));
-    if (isInvalid) {
-        console.error(`[moduleRunAt] running in the wrong border, expect ${JSON.stringify(borders)} , received ${JSON.stringify(options)}`)
-        return false
-    }
-    return true
-}
-
-function isJavascriptModule(item) {
-    return /\.(js|mjs|jsx|ts|tsx)$/.test(item.resource);
-}
-
-function isNodeModulesModule(item) {
-    return !!(item.resource.replace(process.cwd(), '').startsWith('/node_modules'));
-}
-
-class ModuleRunAtPlugin {
-    constructor(options = {
-        portal: '',
-        region: ''
-    }) {
-        this.options = JSON.parse(JSON.stringify(options).toLowerCase())
-    }
-    // Define `apply` as its prototype method which is supplied with compiler as its argument
     apply(compiler) {
-        let options = this.options
-        // Specify the event hook to attach to
-        compiler.hooks.emit.tapAsync(
-            'ModuleRunAtPlugin',
-            (compilation, callback) => {
-
-                function checkModule(item) {
-                    // 非js文件或node_modules下的模块不会有检测函数存在，跳过
-                    if (!isJavascriptModule(item) || isNodeModulesModule(item)) {
-                        return;
-                    }
-                    const source = item.originalSource().source();
-                    const regex = /moduleRunAt\(([^)]+)\)/g;
-                    let match;
-                    while ((match = regex.exec(source)) !== null) {
-                        // Get the argument of the function call
-                        let arg
-                        try {
-                            arg = eval(match[1]);
-                        } catch (e) { // ignore unknown arg, eg: function moduleRunAt
-                            continue
+        // Register a hook to run after the compilation is done
+        compiler.hooks.afterCompile.tap("DetectVariableAPlugin", (compilation) => {
+            // Get all the modules in the compilation
+            const modules = compilation.modules;
+            // Create a map to store the paths of the modules that contain variable A
+            const pathsMap = new Map();
+            // Loop through the modules
+            for (const module of modules) {
+                // Get the source code of the module
+                const source = module._source ? module._source.source() : "";
+                // Check if the source code contains variable A
+                if (source.includes("var A") || source.includes("let A") || source.includes("const A")) {
+                    // Get the path of the module
+                    const path = module.resource;
+                    // Split the path by slashes
+                    const segments = path.split("/");
+                    // Loop through the segments from the end to the start
+                    for (let i = segments.length - 1; i >= 0; i--) {
+                        // Get the current segment
+                        const segment = segments[i];
+                        // Check if the segment is a directory name
+                        if (segment.includes(".")) {
+                            // Skip this segment if it is a file name
+                            continue;
                         }
-                        // Check if the argument meets the build env
-                        if (!moduleRunAt(arg, options)) {
-                            compilation.errors.push(
-                                new Error(
-                                    `[moduleRunAt] wrong borders : ${match[1]} in ${item.resource} ,env: ${JSON.stringify(options)}`
-                                )
-                            );
+                        // Check if the paths map already has this segment as a key
+                        if (pathsMap.has(segment)) {
+                            // Get the array of paths that contain variable A under this segment
+                            const paths = pathsMap.get(segment);
+                            // Check if any of the paths is a subdirectory of the current path
+                            for (const p of paths) {
+                                if (p.startsWith(path)) {
+                                    // Report an error if variable A appears twice in the same directory tree
+                                    compilation.errors.push(
+                                        new Error(`Variable A appears twice in the same directory tree: ${p} and ${path}`)
+                                    );
+                                    // Break the loop
+                                    break;
+                                }
+                            }
+                            // Add the current path to the array of paths under this segment
+                            paths.push(path);
+                        } else {
+                            // Create a new array of paths under this segment and add the current path
+                            pathsMap.set(segment, [path]);
                         }
+                        // Break the loop
+                        break;
                     }
                 }
-
-                function checkModules(item) {
-                    if (item.modules && item.modules.length) {
-                        item.modules.forEach(moduleItem => checkModules(moduleItem));
-                    }
-                    checkModule(item);
-                }
-
-                compilation.chunks.forEach((chunk) => {
-                    chunk.getModules().forEach(item => checkModules(item));
-
-                });
-
-                // for (const assetName in compilation.assets) {
-                //     // Get the asset source code as a string
-                //     const source = compilation.assets[assetName].source();
-                //     // Use a regular expression to match moduleRunAt function calls
-                //     const regex = /moduleRunAt\(([^)]+)\)/g;
-                //     let match;
-                //     while ((match = regex.exec(source)) !== null) {
-                //         // Get the argument of the function call
-                //         let arg
-                //         try {
-                //             arg = eval(match[1]);
-                //         } catch (e) { // ignore unknown arg, eg: function moduleRunAt
-                //             continue
-                //         }
-                //         // Check if the argument meets the build env
-                //         if (!moduleRunAt(arg, this.options)) {
-                //             compilation.errors.push(
-                //                 new Error(
-                //                     `[moduleRunAt] wrong borders : ${match[1]} in ${assetName} ,env: ${JSON.stringify(this.options)}`
-                //                 )
-                //             );
-                //         }
-                //     }
-                // }
-
-                callback();
             }
-        );
-
-
+        });
     }
 }
-
 
 module.exports = (env) => {
 
@@ -158,6 +101,7 @@ module.exports = (env) => {
             new ModuleRunAtPlugin({
                 portal: env.PORTAL
             }),
+            // new DispatchLogicRatioPlugin()
             // new webpack.optimize.ModuleConcatenationPlugin(),
             // new webpack.optimize.FlagDependencyUsagePlugin,
             // new webpack.optimize.FlagIncludedChunksPlugin(),
