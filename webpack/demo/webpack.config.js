@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 const ModuleRunAtPlugin = require('./plugins/moduleRunAtPlugin')
-const DispatchLogicRatioPlugin = require('./plugins/DispatchLogicRatioPlugin')
 // A webpack plugin that detects if variable A appears twice in the same directory tree
 class DetectVariableAPlugin {
     constructor(options) {
