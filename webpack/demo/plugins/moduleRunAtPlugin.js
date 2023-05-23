@@ -4,24 +4,6 @@ const {
     inspect
 } = require("util");
 
-function simpleStringify(object) {
-    // stringify an object, avoiding circular structures
-    // https://stackoverflow.com/a/31557814
-    var simpleObject = {};
-    for (var prop in object) {
-        if (!object.hasOwnProperty(prop)) {
-            continue;
-        }
-        if (typeof (object[prop]) == 'object') {
-            continue;
-        }
-        if (typeof (object[prop]) == 'function') {
-            continue;
-        }
-        simpleObject[prop] = object[prop];
-    }
-    return JSON.stringify(simpleObject); // returns cleaned up JSON
-};
 const isInvalidModuleBorder = (border, options) => {
     const {
         portal = [], regions = []
@@ -73,20 +55,17 @@ module.exports = class ModuleRunAtPlugin {
                     dispatchLogicFileCount: 0,
                     dispatchLogicNeedMarkReferenceCount: 0, // 用于存储 dispatchLogic 引用中需要标记 moduleRunAt 的引用次数
                     dispatchLogicTotalReferenceCount: 0, // 用于存储 dispatchLogic 文件名内部所有引用次数
-                    moduleRunAtCount: 0, // moduleRunAt 字符串出现次数的映射
+                    markedModuleRunAtCount: 0, // moduleRunAt 字符串出现次数的映射
                     ratio: 0 // moduleRunAt 的覆盖率，moduleRunAtCount/dispatchLogicNeedMarkReferenceCount
                 }
 
-                if (fs.existsSync('file-content.json')) {
-                    fs.unlinkSync('file-content.json')
-                }
+                // if (fs.existsSync('file-content.json')) {
+                //     fs.unlinkSync('file-content.json')
+                // }
 
                 function collectDispatchLogicData(item) {
                     const currentFilename = item.resource,
                         currentDirname = path.dirname(currentFilename)
-
-
-                        
                         
                     /**
                      * tree shake will delete unused import content from chunk
@@ -97,7 +76,7 @@ module.exports = class ModuleRunAtPlugin {
                     // fs.appendFileSync('file-content.json', currentFilename + '\n' + fileContent + '\n\n')
                     // const regex = /moduleRunAt\(([^)]+)\)/g;
                     // if (fileContent.match(regex)) { // collect moduleRunAt total count
-                    //     result.moduleRunAtCount++
+                    //     result.markedModuleRunAtCount++
                     // }
 
 
@@ -137,7 +116,7 @@ module.exports = class ModuleRunAtPlugin {
                             }
                         })
 
-                        result.dispatchLogicNeedMarkReferenceCount = needInspectFiles.length
+                        result.dispatchLogicNeedMarkReferenceCount += needInspectFiles.length
                         needInspectFiles.forEach(absoluteFilePath => { // collect moduleRunAt total count
                             console.log('absoluteFilePath', absoluteFilePath)
                             let fileContent = fs.readFileSync(absoluteFilePath, {
@@ -145,7 +124,7 @@ module.exports = class ModuleRunAtPlugin {
                             })
                             const regex = /moduleRunAt\(\[([^)]+)\)/g; // 以数组括号 [ 开头，排除掉定义情况
                             if (fileContent.match(regex)) { // collect moduleRunAt total count
-                                result.moduleRunAtCount++
+                                result.markedModuleRunAtCount++
                             }
                         })
 
@@ -211,7 +190,7 @@ module.exports = class ModuleRunAtPlugin {
 
                 //     console.log('dependencies', dependencies.length, compilation.moduleGraph.getModule(dependency).resource)
                 // })
-                result.ratio = result.moduleRunAtCount / result.dispatchLogicNeedMarkReferenceCount * 100 + '%'
+                result.ratio = result.markedModuleRunAtCount / result.dispatchLogicNeedMarkReferenceCount * 100 + '%'
                 compilation.assets["dispatch-logic-ratio.json"] = {
                     size: () => result.length,
                     source: () => JSON.stringify(result),
