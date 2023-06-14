@@ -9,7 +9,7 @@ import {
 
 import {
     otherFn
-} from '../util'
+} from './util'
 otherFn()
 export default {
     ['dispatcher']:{

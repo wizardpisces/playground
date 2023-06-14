@@ -1,0 +1,10 @@
+"use strict";
+let a = 1;
+let error2 = 2;
+let error3 = 2;
+let error4 = 2;
+let error5 = 2;
+let error6 = 2;
+let error7 = 2;
+let error8 = 2;
+let error9 = 2;

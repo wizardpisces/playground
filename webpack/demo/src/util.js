@@ -7,7 +7,3 @@ export function moduleRunAt(border) {
     }
     return true
 }
-
-export function otherFn(){
-    return 'this is test'
-}

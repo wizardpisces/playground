@@ -66,12 +66,12 @@ module.exports = class ModuleRunAtPlugin {
                 function collectDispatchLogicData(item) {
                     const currentFilename = item.resource,
                         currentDirname = path.dirname(currentFilename)
-                        
+
                     /**
                      * tree shake will delete unused import content from chunk
                      * 这个方法会丢失被 shake 掉的 content ，导致 moduleRunAt 变少
                      * 换成收集 dispatchLogic 可能的分发引用，然后定点计算 moduleRunAt 的出现次数
-                     */    
+                     */
                     // const fileContent = item.originalSource().source();
                     // fs.appendFileSync('file-content.json', currentFilename + '\n' + fileContent + '\n\n')
                     // const regex = /moduleRunAt\(([^)]+)\)/g;
@@ -111,8 +111,11 @@ module.exports = class ModuleRunAtPlugin {
                             searchedResource.add(absoluteFilename)
                             result.dispatchLogicTotalReferenceCount++
 
-                            if (currentDirname === path.dirname(absoluteFilename)) { // 只对当前目录的分发做统计（TODO：如何排除 util 等当前目录下无关分发的引用文件）
-                                needInspectFiles.push(absoluteFilename) // 收集实际被分发的文件，做分母，后续对分母引用文件内容做筛选，做分子
+                            if (currentDirname === path.dirname(absoluteFilename)) { // 只对当前目录的分发做统计
+                                const filesNeedToBeExcluded = ['util', 'utils', 'type', 'const', 'constant'] // 排除 util 等当前目录下无关分发的引用文件
+                                if (!filesNeedToBeExcluded.includes(path.basename(absoluteFilename, path.extname(absoluteFilename)))) {
+                                    needInspectFiles.push(absoluteFilename) // 收集实际被分发的文件，做分母，后续对分母引用文件内容做筛选，做分子
+                                }
                             }
                         })
 
