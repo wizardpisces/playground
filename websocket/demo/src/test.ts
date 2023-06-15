@@ -21,6 +21,7 @@ let error9 = fn()
 
 const s = ageMap[error2]
 
+
 // 假设这个文件是 src/test.ts
 // 定义一个复杂的类型
 type TSERROR = {

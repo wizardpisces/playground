@@ -1,6 +1,10 @@
 <html>
     <head></head>
     <body>
-        <script src="./client.js?date=-2"></script>
+        <script>
+            var script = document.createElement("script");
+            script.src = "./client.js?date=" + Math.random();
+            document.body.appendChild(script);
+        </script>
     </body>
 </html>

@@ -50,7 +50,7 @@ function processString(input) {
                 code: match[3],
                 msg: match[4]
             };
-            return `\x1b[36m${errorObj.pathName}\x1b[0m\x1b[33m:${errorObj.position}\x1b[0m - \x1b[31merror ${errorObj.code}\x1b[0m: ${errorObj.msg}`
+            return `\n\x1b[36m${errorObj.pathName}\x1b[0m\x1b[33m:${errorObj.position}\x1b[0m - \x1b[31merror ${errorObj.code}\x1b[0m: ${errorObj.msg}`
         } else {
             return line;
         }
@@ -62,9 +62,10 @@ function processString(input) {
 // })
 
 tsc.stdout.on("data", (data) => {
-    const error = data.toString();
+    const rawError = data.toString();
+    let error = processString(rawError)
     // console.log('\x1b[32m[TS ERROR]\x1b[0m', error)
-    console.log(processString(error))
+    console.log(error)
     // process.stdout.write(data)
 
     if (compilationStartedRegex.test(error)) {
