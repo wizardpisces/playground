@@ -32,13 +32,39 @@ const tsc = spawn("tsc", ["--project", path.resolve(__dirname, './tsconfig.json'
     stdio: 'pipe'
 });
 
-
+// 假设输入字符串是 input
+function processString(input) {
+    // 定义一个正则表达式来匹配每一行的四个部分
+    const regex = /(.+)\((\d+,\d+)\): error (\w+): (.+)/;
+    // 用换行符来分割字符串，得到一个数组
+    const lines = input.split("\n");
+    // 用 map 方法来遍历数组，对每一行进行处理，返回一个对象
+    const result = lines.map(line => {
+        // 用正则表达式来提取四个部分
+        const match = line.match(regex);
+        // 如果匹配成功，返回一个对象，否则返回 null
+        if (match) {
+            let errorObj = {
+                pathName: match[1],
+                position: match[2],
+                code: match[3],
+                msg: match[4]
+            };
+            return `\x1b[36m${errorObj.pathName}\x1b[0m\x1b[33m:${errorObj.position}\x1b[0m - \x1b[31merror ${errorObj.code}\x1b[0m: ${errorObj.msg}`
+        } else {
+            return line;
+        }
+    });
+    // 返回结果数组
+    return result.join('\n');
+}
 // process.stdout.on("data", (data) => {
 // })
 
 tsc.stdout.on("data", (data) => {
     const error = data.toString();
-    console.log('\x1b[32m[TS ERROR]\x1b[0m', error)
+    // console.log('\x1b[32m[TS ERROR]\x1b[0m', error)
+    console.log(processString(error))
     // process.stdout.write(data)
 
     if (compilationStartedRegex.test(error)) {
@@ -76,24 +102,3 @@ tsc.stderr.on("data", (data) => {
 tsc.on("close", (code) => {
     console.error(`tsc process exited with code ${code}`);
 });
-
-
-const processErrorLog = (error) => {
-    // 定义一个正则表达式，用于匹配 error 信息的格式
-    const regex = /(.+):(\d+):(\d+) - error (TS\d+): (.+)/;
-
-    // 使用正则表达式测试 error 信息是否符合格式
-    if (regex.test(error)) {
-        // 使用正则表达式捕获 error 信息中的各个部分
-        const [, fileName, line, column, errorCode, errorMessage] = regex.exec(
-            error
-        );
-
-        // 打印各个部分
-        console.log("File name:", fileName);
-        console.log("Line number:", line);
-        console.log("Column number:", column);
-        console.log("Error code:", errorCode);
-        console.log("Error message:", errorMessage);
-    }
-}
