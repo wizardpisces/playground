@@ -15,9 +15,9 @@ let compilationStart = false
 let socket = null,
     cacheMessage = []
 
-// 创建一个 WebSocket 服务器，监听 3000 端口
+// 创建一个 WebSocket 服务器，监听端口
 const server = new WebSocket.Server({
-    port: 8888
+    port: 9999
 });
 // 监听连接事件
 server.on("connection", (s) => { // tsc 不放在回调里，节省编译资源，通过缓存提供给多个客户端同样的 ts error
@@ -103,3 +103,20 @@ tsc.stderr.on("data", (data) => {
 tsc.on("close", (code) => {
     console.error(`tsc process exited with code ${code}`);
 });
+
+function cleanExit() {
+    // send signal to child process
+    tsc.kill('SIGINT');
+    // exit main process
+    process.exit();
+}
+
+// listen for signals and exit events
+// process.on('SIGINT', cleanExit);
+// process.on('SIGTERM', cleanExit);
+// process.on('exit', cleanExit);
+
+// WebSocket.prototype.on('close', () => {
+//     console.log('closing')
+//     server.close()
+// })

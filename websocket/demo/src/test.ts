@@ -21,7 +21,6 @@ let error9 = fn()
 
 const s = ageMap[error2]
 
-
 // 假设这个文件是 src/test.ts
 // 定义一个复杂的类型
 type TSERROR = {
@@ -48,4 +47,8 @@ console.log(TSERROR2(TSERROR3));
 console.log(TSERROR2(TSERROR3).a + TSERROR2(TSERROR3).b);
 console.log(TSERROR2(TSERROR3).c ? "true" : "false");
 console.log(TSERROR4);
+
+const a = 1;
+
+
 

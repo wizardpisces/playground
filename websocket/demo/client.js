@@ -53,7 +53,7 @@ function parseToNodes(input) {
 }
 
 function createWebSocket() {
-    const socket = new WebSocket('ws://localhost:8888');
+    const socket = new WebSocket('ws://localhost:9999');
 
     socket.onopen = () => {
         logError('已连接到 tsc watch 服务端');

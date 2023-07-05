@@ -33,3 +33,4 @@ console.log(TSERROR2(TSERROR3));
 console.log(TSERROR2(TSERROR3).a + TSERROR2(TSERROR3).b);
 console.log(TSERROR2(TSERROR3).c ? "true" : "false");
 console.log(TSERROR4);
+const a = 1;
