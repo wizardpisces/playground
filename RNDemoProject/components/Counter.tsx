@@ -55,7 +55,7 @@ export default class Counter extends React.Component {
         return (
             <Fragment>
                 <Text style={count < 3 ? styles.less : styles.greater}>Counter: You clicked {count} times</Text>
-                <TouchableOpacity style={styles.button} onPress={this.setCount}>
+                <TouchableOpacity style={styles.button} onPress={this.setCount} accessibilityLabel="counter-button">
                     <Text style={styles.buttonText}>Click</Text>
                 </TouchableOpacity>
             </Fragment>
