@@ -49,6 +49,3 @@ console.log(TSERROR2(TSERROR3).c ? "true" : "false");
 console.log(TSERROR4);
 
 const a = 1;
-
-
-
