@@ -1,6 +1,6 @@
 const { remote } = require("webdriverio");
 
-const opts = {
+export const appiumConfig = {
   // path: '/wd/hub', // Appium v1 服务路径
   path: '/', // Appium v2 服务路径
   port: 4723,
@@ -15,7 +15,7 @@ const opts = {
 };
 
 async function main() {
-  const driver = await remote(opts);
+  const driver = await remote(appiumConfig);
   const element = await driver.$("~counter-button");
   await element.click();
   await element.click();

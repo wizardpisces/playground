@@ -1,6 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "types": ["node", "@wdio/globals/types", "@wdio/mocha-framework"]
+  },
 }
