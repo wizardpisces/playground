@@ -10,4 +10,9 @@ describe('WebdriverIO and Appium, when interacting with a login form,', () => {
     const title = await $('~counter-button').getText();
     expect(title).toBe('counter-button');
   });
+
+  it('text should be 0', async () => { // this test will fail
+    const title = await $('~counter-button').getText();
+    expect(title).toBe('0');
+  });
 });

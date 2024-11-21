@@ -3,6 +3,21 @@ import fs from 'fs';
 let getReportGlobal: (currentOS: string) => Promise<void>;
 let setTestInfoGlobal: (sessionId: string, testName: string, testStatus: string, error: string) => Promise<void>;
 
+function getCurrentFormattedTime() {
+  const now = new Date(); // 获取当前时间
+
+  const year = now.getFullYear(); // 获取年份
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // 获取月份（0-11），加1并补零
+  const date = String(now.getDate()).padStart(2, '0'); // 获取日期并补零
+
+  const hours = String(now.getHours()).padStart(2, '0'); // 获取小时并补零
+  const minutes = String(now.getMinutes()).padStart(2, '0'); // 获取分钟并补零
+  const seconds = String(now.getSeconds()).padStart(2, '0'); // 获取秒数并补零
+
+  return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`; // 拼接字符串
+}
+
+
 export const config: WebdriverIO.Config = {
   // path: '/', // Appium v2 服务路径
   port: 4723,
@@ -48,24 +63,24 @@ export const config: WebdriverIO.Config = {
   afterTest: async function (
     test: any, context: any, { error, result, duration, passed, retries }: any
   ) {
-    // const sessionId = driver.sessionId;
-    // const testName = `${test.title} in ${duration / 1000} s`;
-    // const boolTestStatus = passed;
-    // console.log('setTestInfo: %s', testName);
-    // let testStatus = 'FAILED';
-    // if (boolTestStatus) {
-    //   testStatus = 'PASSED';
-    // }
+    const sessionId = driver.sessionId;
+    const testName = `${test.title} in ${duration / 1000} s`;
+    const boolTestStatus = passed;
+    console.log('setTestInfo: %s', testName);
+    let testStatus = 'FAILED';
+    if (boolTestStatus) {
+      testStatus = 'PASSED';
+    }
 
-    // await setTestInfoGlobal(sessionId, testName, testStatus, error);
+    await setTestInfoGlobal(sessionId, testName, testStatus, error);
   },
 
   after: async function (result:any, capabilities: WebdriverIO.Capabilities, specs: string[]) {
-    // await getReportGlobal(capabilities.platformName as string);
+    console.log('after result', result)
+    await getReportGlobal(capabilities.platformName as string);
   },
 
   before: async function (capabilities: WebdriverIO.Capabilities , specs: string[]) {
-    console.log('before_test', specs)
     getReportGlobal = async function (currentOS: string) {
       const url = 'http://localhost:4723/getReport';
       const response = await fetch(url).catch(rejected => {
@@ -75,8 +90,8 @@ export const config: WebdriverIO.Config = {
       const data = await response?.text();
 
       // Create Report File
-      const fileName = `Report_${currentOS}_${Math.floor(Date.now() / 1000)}`;
-      fs.writeFile(`./${fileName}.html`, data || 'report data is empty', 'utf-8', (err) => {
+      const fileName = `report_${currentOS}_${getCurrentFormattedTime()}`;
+      fs.writeFile(`${__dirname}/reports/${fileName}.html`, data || 'report data is empty', 'utf-8', (err) => {
         if (err) throw err;
       });
 
