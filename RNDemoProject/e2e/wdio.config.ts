@@ -107,11 +107,17 @@ export const config: WebdriverIO.Config = {
     
     setTestInfoGlobal = async function (sessionId: string, testName: string, testStatus: string, error: string) {
       const url = 'http://localhost:4723/setTestInfo';
-      const reqBody: any = {};
-      reqBody.sessionId = sessionId;
-      reqBody.error = `${error}`;
-      reqBody.testName = testName;
-      reqBody.testStatus = testStatus;
+      const reqBody: {
+        sessionId: string,
+        error: string,
+        testName: string,
+        testStatus: string,
+      } = {
+        sessionId: sessionId,
+        error: `${error}`,
+        testName: testName,
+        testStatus: testStatus,
+      };
 
       await fetch(url, {
         method: 'post',
