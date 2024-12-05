@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import SVGCompiler from 'svg-baker';
 import { optimize } from 'svgo';
-import { SVG_DOM_ID, XMLNS, XMLNS_LINK } from './constants';
+import { XMLNS, XMLNS_LINK } from './constants';
 
 const normalizePath = (p: string) => {
   return path.normalize(p);
