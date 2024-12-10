@@ -10,5 +10,5 @@ pub fn sum(a: i32, b: i32) -> i32 {
 
 #[napi]
 pub fn transformCode(input: String) -> String {
-    input.replace("console.log", "console.debug")
+    input.replace("console.log", "console.info")
 }
