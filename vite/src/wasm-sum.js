@@ -10,5 +10,4 @@ import init, { sum } from "../wasm_sum/pkg/wasm_sum.js";
 (async () => {
   await init();
   const result = sum(10, 20); // 调用 Rust 的 sum 函数
-  console.log(result, 'result');
 })();
