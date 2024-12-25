@@ -2,10 +2,10 @@ import ssim from 'ssim.js';
 import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
-export default function ssimTest() {
+export default function ssimTest(caseNumber: number) {
   // 读取 PNG 图像文件并解析为 ImageData
-  const image1Path = path.resolve(__dirname, '../test/1/original.png');
-  const image2Path = path.resolve(__dirname, '../test/1/target.png');
+  const image1Path = path.resolve(__dirname, `../test/${caseNumber}/record.png`);
+  const image2Path = path.resolve(__dirname, `../test/${caseNumber}/replay.png`);
 
   const image1Buffer = fs.readFileSync(image1Path);
   const image2Buffer = fs.readFileSync(image2Path);
@@ -31,5 +31,5 @@ export default function ssimTest() {
 
   // 使用 ssim.js 比较
   const similarity = ssim(imageData1, imageData2);
-  console.log('ssim.js similarity', similarity.mssim, similarity.performance + 'ms'); // 输出结构相似性分数
+  console.log(`ssim.js case${caseNumber} 耗时：${similarity.performance}ms ; 图片相似度:${similarity.mssim.toFixed(2)}`); // 输出结构相似性分数
 }
