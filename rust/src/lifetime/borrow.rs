@@ -37,3 +37,22 @@ fn change_and_get_first_element(a: &mut Vec<i32>) -> i32 {
     a[0] = 4;
     a[0]
 }
+
+
+// struct Node<'a> {
+//     value: i32,
+//     next: Option<&'a Node<'a>>,
+// }
+
+// fn main() {
+//     let mut nodes = Vec::new();
+
+//     // 编译错误：生命周期问题
+//     let node1 = Node { value: 1, next: None };
+//     let node2 = Node { value: 2, next: Some(&node1) };
+
+//     nodes.push(node1);
+//     nodes.push(node2);
+
+//     // nodes[0].next.unwrap().value = 1
+// }
