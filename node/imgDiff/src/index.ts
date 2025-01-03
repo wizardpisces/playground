@@ -1,10 +1,24 @@
 import ssimTest from './ssimTest';
-import pixelMatchTest from './pixelMatchTest';
+import pixelMatchTest from './optimizedImgDiff';
+import dynamicThresholdMatchTest from './dynamicThresholdMatchTest';
+import { PNG } from 'pngjs';
+import fs from 'fs';
+import path from 'path';
+// 用例数量
+[1, 2, 3].forEach((caseNumber) => {
 
-ssimTest(1);
-ssimTest(2);
+  console.log(`\ncase${caseNumber}:`);
 
-pixelMatchTest(1, 0.05);
-pixelMatchTest(2, 0.05);
-pixelMatchTest(1, 0.1);
-pixelMatchTest(2, 0.1);
+  const image1Path = path.resolve(__dirname, `../test/${caseNumber}/record.png`);
+  const image2Path = path.resolve(__dirname, `../test/${caseNumber}/replay.png`);
+
+  const img1 = PNG.sync.read(fs.readFileSync(image1Path));
+  const img2 = PNG.sync.read(fs.readFileSync(image2Path));
+
+  // ssimTest(caseNumber);
+  dynamicThresholdMatchTest(img1, img2, 100);
+  // 切换不同的阈值 [0.05, 0.1, 0.15]
+  [0.1].forEach((threshold, index) => {
+    pixelMatchTest(img1, img2, threshold);
+  });
+});
